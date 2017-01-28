@@ -13,6 +13,7 @@ const witClient = require('../server/witClient')(witToken);
 const slackToken = config.slackToken;
 const slackLogLevel = 'verbose';
 
+
 const serviceRegistry = service.get('serviceRegistry');
 const rtm = slackClient.init(slackToken, slackLogLevel, witClient, serviceRegistry);
 rtm.start();
