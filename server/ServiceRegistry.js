@@ -1,10 +1,10 @@
 'use strict';
 
 class ServiceRegistry {
-
     constructor(timeout) {
         this._services = [];
         this._timeout = timeout ? timeout : 30;
+
     }
 
     add(intent, ip, port) {
@@ -54,3 +54,4 @@ class ServiceRegistry {
 }
 
 module.exports = ServiceRegistry;
+
