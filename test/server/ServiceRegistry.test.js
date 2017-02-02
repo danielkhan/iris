@@ -27,6 +27,20 @@ describe('ServiceRegistry', () => {
             testIntent.ip.should.equal('127.0.0.1');
             testIntent.port.should.equal(9999);
         });
+
+        it('should update a service if it is added again', () => {
+            const serviceRegistry = new ServiceRegistry();
+            // add(intent, ip, port)
+            serviceRegistry.add('test', '127.0.0.1', 9999);
+            const testIntent1 = serviceRegistry.get('test');
+
+            serviceRegistry.add('test', '127.0.0.1', 9999);
+            const testIntent2 = serviceRegistry.get('test');
+
+            Object.keys(serviceRegistry._services).length.should.equal(1);
+            testIntent2.timestamp.should.be.greaterThanOrEqual(testIntent1.timestamp);
+        });
+
     });
 
     describe('remove', () => {
