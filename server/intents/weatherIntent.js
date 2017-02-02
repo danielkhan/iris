@@ -16,10 +16,10 @@ module.exports.process = function process(intentData, registry, cb) {
 
     request.get(`http://${service.ip}:${service.port}/service/${location}`, (err, res) => {
         if(err || res.statusCode != 200 || !res.body.result) {
-            console.log(err);
+            // console.log(err);
             return cb(false, `I had a problem finding out the weather in ${location}`);
         }
         
         return cb(false, `The current weather in ${location} is ${res.body.result}`);
     });   
-}
+};

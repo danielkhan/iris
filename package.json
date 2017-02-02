@@ -5,7 +5,7 @@
   "main": "server/service.js",
   "scripts": {
     "start": "node bin/run",
-    "test": "nyc mocha --recursive test"
+    "test": "NODE_ENV=test eslint bin server && nyc mocha --recursive test"
   },
   "author": "",
   "license": "ISC",
