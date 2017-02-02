@@ -1,7 +1,5 @@
 'use strict';
-
 const request = require('superagent');
-
 module.exports.process = function process(intentData, registry, cb) {
 
     if(intentData.intent[0].value !== 'time')
@@ -19,7 +17,6 @@ module.exports.process = function process(intentData, registry, cb) {
             console.log(err);
             return cb(false, `I had a problem finding out the time in ${location}`);
         }
-
         return cb(false, `In ${location}, it is now ${res.body.result}`);
     });   
 };
