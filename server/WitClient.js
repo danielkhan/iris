@@ -2,10 +2,12 @@
 
 const request = require('superagent');
 
+
 // This can stay here as it does not relay on any property of the class
 function handleWitResponse(res) {
     return res.entities;
 }
+
 
 class WitClient {
 
@@ -29,3 +31,4 @@ class WitClient {
 }
 
 module.exports = WitClient;
+

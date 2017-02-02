@@ -2,6 +2,7 @@
 
 class ServiceRegistry {
 
+
     constructor(timeout, log) {
         this._services = [];
         this._timeout = timeout ? timeout : 30;
@@ -55,3 +56,4 @@ class ServiceRegistry {
 }
 
 module.exports = ServiceRegistry;
+
