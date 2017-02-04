@@ -5,12 +5,13 @@
   "main": "server/service.js",
   "scripts": {
     "start": "node bin/run",
-    "test": "nyc mocha --recursive test"
+    "test": "NODE_ENV=test eslint bin server && nyc mocha --recursive test"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^3.6.0",
+    "bunyan": "^1.8.5",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "superagent": "^2.2.0"

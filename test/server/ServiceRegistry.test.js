@@ -1,24 +1,26 @@
 'use strict';
 
 const should = require('should');
+const config = require('../../config');
+const log = config.log('test');
 const ServiceRegistry = require('../../server/ServiceRegistry');
 
 describe('ServiceRegistry', () => {
 
     describe('new', () => {
         it('should accept a timeout being passed in', () => {
-            const serviceRegistry = new ServiceRegistry(42);
+            const serviceRegistry = new ServiceRegistry(42, log);
             serviceRegistry._timeout.should.equal(42);
         });
         it('should default to 30 with no passed timeout', () => {
-            const serviceRegistry = new ServiceRegistry();
+            const serviceRegistry = new ServiceRegistry(null, log);
             serviceRegistry._timeout.should.equal(30);
         });
     });
 
     describe('add / get', () => {
         it('should add a new intent to the registry and provide it via get', () => {
-            const serviceRegistry = new ServiceRegistry();
+            const serviceRegistry = new ServiceRegistry(null, log);
             // add(intent, ip, port)
             serviceRegistry.add('test', '127.0.0.1', 9999);
 
@@ -29,7 +31,7 @@ describe('ServiceRegistry', () => {
         });
 
         it('should update a service if it is added again', () => {
-            const serviceRegistry = new ServiceRegistry();
+            const serviceRegistry = new ServiceRegistry(null, log);
             // add(intent, ip, port)
             serviceRegistry.add('test', '127.0.0.1', 9999);
             const testIntent1 = serviceRegistry.get('test');
@@ -45,7 +47,7 @@ describe('ServiceRegistry', () => {
 
     describe('remove', () => {
         it('should remove an intent from the registry', () => {
-            const serviceRegistry = new ServiceRegistry();
+            const serviceRegistry = new ServiceRegistry(null, log);
             // add(intent, ip, port)
             serviceRegistry.add('test', '127.0.0.1', 9999);
 
@@ -66,7 +68,7 @@ describe('ServiceRegistry', () => {
         it('should remove expired services', () => {
             // Now the fact that we can pass in the timeout greatly helps
             // Using -1 guarantees that the each service will be xpired right away.
-            const serviceRegistry = new ServiceRegistry(-1);     
+            const serviceRegistry = new ServiceRegistry(-1, log);     
             serviceRegistry.add('test', '127.0.0.1', 9999);
             const nullIntent = serviceRegistry.get('test');
             should.not.exist(nullIntent);

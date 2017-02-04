@@ -13,11 +13,12 @@ const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 class SlackClient {
 
     // The constructor gets what we previously passed into the init function
-    constructor(token, logLevel, nlp, registry) {
+    constructor(token, logLevel, nlp, registry, log) {
 
         // Store the different dependencies as properties
         this._rtm = new RtmClient(token, { logLevel: logLevel });
         this._nlp = nlp;
+        this._log = log;
         this._registry = registry;
 
         this._addAuthenticatedHandler(this._handleOnAuthenticated);
@@ -30,7 +31,7 @@ class SlackClient {
     }
 
     _handleOnAuthenticated(rtmStartData) {
-        console.log(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}, but not yet connected to a channel`);
+        this._log.info(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}, but not yet connected to a channel`);
     }
 
     _handleOnMessage(message) {
@@ -39,21 +40,21 @@ class SlackClient {
 
             this._nlp.ask(message.text, (err, res) => {
                 if (err) {
-                    console.log(err);
+                    this._log.info(err);
                     return;
                 }
 
                 try {
                     if (!res.intent || !res.intent[0] || !res.intent[0].value) {
-                        throw new Error("Could not extract intent.");
+                        throw new Error('Could not extract intent.');
                     }
 
                     const intent = require('./intents/' + res.intent[0].value + 'Intent');
 
                     // Change to fat arrow because this is otherwise the function
-                    intent.process(res, this._registry, (error, response) => {
+                    intent.process(res, this._registry, this._logger, (error, response) => {
                         if (error) {
-                            console.log(error.message);
+                            this._log.info(error.message);
                             return;
                         }
 
@@ -61,8 +62,8 @@ class SlackClient {
                     });
 
                 } catch (err) {
-                    console.log(err);
-                    console.log(res);
+                    this._log.info(err);
+                    this._log.info(res);
                     this._rtm.sendMessage('Sorry, I don\'t know what you are talking about!', message.channel);
                 }
 
@@ -72,11 +73,11 @@ class SlackClient {
 
     // Now we can omit passing in rtm
     _addAuthenticatedHandler(handler) {
-        this._rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, handler);
+        this._rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, handler.bind(this));
     }
 
     start(handler) {
-    
+
         this._addAuthenticatedHandler(handler);
         this._rtm.start();
     }

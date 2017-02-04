@@ -1,6 +1,9 @@
 'use strict';
 
 const config = require('../config');
+
+
+const log = config.log();
 const service = require('../server/service')(config);
 
 const http = require('http');
@@ -17,11 +20,11 @@ const slackLogLevel = 'verbose';
 
 const serviceRegistry = service.get('serviceRegistry');
 
-const slackClient = new SlackClient(slackToken, slackLogLevel, witClient, serviceRegistry);
+const slackClient = new SlackClient(slackToken, slackLogLevel, witClient, serviceRegistry, log);
 slackClient.start(() => { 
     server.listen(3000);
 });
 
 server.on('listening', function() {
-    console.log(`IRIS is listening on ${server.address().port} in ${service.get('env')} mode.`);
+    log.info(`IRIS is listening on ${server.address().port} in ${service.get('env')} mode.`);
 });
