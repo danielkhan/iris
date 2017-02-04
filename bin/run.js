@@ -14,7 +14,7 @@ const SlackClient = require('../server/SlackClient');
 const witToken = config.witToken;
 const WitClient = require('../server/WitClient');
 const witClient = new WitClient(witToken);
-
+dfsafsda
 const slackToken = config.slackToken;
 const slackLogLevel = 'verbose';
 
