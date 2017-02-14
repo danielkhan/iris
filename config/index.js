@@ -8,12 +8,11 @@ const log = {
     test: bunyan.createLogger({ name: 'IRIS-test', level: 'fatal' }),
 
 };
-
 module.exports = {
     serviceTimeout: 30,
     witToken: process.env.WIT_TOKEN,
     slackToken: process.env.SLACK_TOKEN,
-
+    irisApiToken: process.env.IRIS_API_TOKEN,
     log: (env) => {
         if(env) return log[env];
         return log[process.env.NODE_ENV || 'development'];
