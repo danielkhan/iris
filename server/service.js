@@ -7,7 +7,7 @@ const ServiceRegistry = require('./ServiceRegistry');
 
 module.exports = (config) => {
 
-    const log = config.log('test');
+    const log = config.log();
 
     const serviceRegistry = new ServiceRegistry(config.serviceTimeout, log);
     service.set('serviceRegistry', serviceRegistry);
