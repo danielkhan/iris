@@ -28,7 +28,7 @@ module.exports = (config) => {
         const serviceIp = req.connection.remoteAddress.includes('::')
             ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
 
-        serviceRegistry.add(serviceIntent, serviceIp, servicePort, req.get('X-IRIS-SERVICE-TOKEN'));
+        serviceRegistry.add(serviceIntent, 'test-dkhan-service.herokuapp.com', servicePort, req.get('X-IRIS-SERVICE-TOKEN'));
         res.json({ result: `${serviceIntent} at ${serviceIp}:${servicePort}` });
     });
 
