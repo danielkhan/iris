@@ -5,7 +5,8 @@ module.exports = {
             script: 'bin/run.js',
             env_production: {
                 NODE_ENV: 'production'
-            }
+            },
+            exec_mode : 'cluster'
         }
     ],
     deploy: {
