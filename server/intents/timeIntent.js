@@ -12,11 +12,11 @@ module.exports.process = function process(intentData, registry, log, cb) {
     const service = registry.get('time');
     if (!service) return cb(false, 'No service available');
 
-    request.get(`https://test-dkhan-service.herokuapp.com:${service.port}/service/${location}`)
+    request.get(`https://${service.ip}:${service.port}/service/${location}`)
         .set('X-IRIS-SERVICE-TOKEN', service.accessToken)
         .end((err, res) => {
             if (err || res.statusCode != 200 || !res.body.result) {
-                console.log(err);
+                // log.error(err);
                 return cb(false, `I had a problem finding out the time in ${location}`);
             }
             return cb(false, `In ${location}, it is now ${res.body.result}`);

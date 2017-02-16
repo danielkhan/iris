@@ -5,7 +5,7 @@
   "main": "server/service.js",
   "scripts": {
     "start": "node bin/run",
-    "test": "NODE_ENV=test eslint bin server && nyc mocha --recursive test"
+    "test": "NODE_ENV=test snyk test && eslint bin server && nyc mocha --recursive test"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,10 @@
     "supertest": "^2.0.1"
   },
   "engines": {
-    "node": ">=6.0.0 <7.0.0"
+    "node": "6.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lynda-danielkhan/iris"
   }
 }
