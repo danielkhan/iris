@@ -8,7 +8,6 @@ const service = require('../server/service')(config);
 
 const http = require('http');
 const server = http.createServer(service);
-
 const SlackClient = require('../server/SlackClient');
 
 const witToken = config.witToken;
