@@ -12,6 +12,10 @@ module.exports = (config) => {
     const serviceRegistry = new ServiceRegistry(config.serviceTimeout, log);
     service.set('serviceRegistry', serviceRegistry);
 
+    service.get('/', (req, res) => {
+        return res.json({hello: 'world'});
+    });
+
     service.put('/service/:intent/:port', (req, res) => {
 
         if(req.get('X-IRIS-API-TOKEN') !== config.irisApiToken) {
