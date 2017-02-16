@@ -3,14 +3,14 @@ const bunyan = require('bunyan');
 
 const log = {
     development: () => {
-        return bunyan.createLogger({ name: 'IRIS-development', level: 'debug' })
+        return bunyan.createLogger({ name: 'IRIS-development', level: 'debug' });
     },
     production: () => {
-        return bunyan.createLogger({ name: 'IRIS-production', level: 'info' })
+        return bunyan.createLogger({ name: 'IRIS-production', level: 'info' });
     },
     // We don't want to have logging output in our test output - so go for only fatal errors
     test: () => {
-        return bunyan.createLogger({ name: 'IRIS-test', level: 'fatal' })
+        return bunyan.createLogger({ name: 'IRIS-test', level: 'fatal' });
     }
 
 };
