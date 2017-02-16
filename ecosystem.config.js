@@ -15,7 +15,7 @@ module.exports = {
             ref: 'origin/master',
             repo: 'git@github.com:danielkhan/iris.git',
             path: '/var/srv/production',
-            'post-deploy': 'cp ../.env ./ && npm install && pm2 startOrRestart ecosystem.json --env production'
+            'post-deploy': 'cp ../.env ./ && npm install && pm2 startOrRestart ecosystem.config.js --env production'
         }
     }
 };
