@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'IRIS-TIME',
+            name: 'IRIS',
             script: 'bin/run.js',
             env_production: {
                 NODE_ENV: 'production'
