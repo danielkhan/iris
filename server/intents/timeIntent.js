@@ -12,7 +12,7 @@ module.exports.process = function process(intentData, registry, log, cb) {
     const service = registry.get('time');
     if (!service) return cb(false, 'No service available');
 
-    request.get(`https://${service.ip}:${service.port}/service/${location}`)
+    request.get(`http://${service.ip}:${service.port}/service/${location}`)
         .set('X-IRIS-SERVICE-TOKEN', service.accessToken)
         .end((err, res) => {
             if (err || res.statusCode != 200 || !res.body.result) {
